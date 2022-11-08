@@ -54,11 +54,24 @@ public class BSTree<T extends Comparable<T>> {
     }
 
     public T getMax(Node<T> root) {
+        return null;
     }
 
     @Override
     public String toString() {
+        if(getRoot() == null)
+            return null;
 
+        String result = "";
+        return recursiveToString(getRoot());
+    }
+
+    private String recursiveToString(Node<T> currentRoot) {
+        String result = "";
+        result += currentRoot.getValue();
+        result += currentRoot.getLeft() == null ? '-' : recursiveToString(currentRoot.getLeft());
+        result += currentRoot.getRight() == null ? '-' : recursiveToString(currentRoot.getRight());
+        return result;
     }
 
     public Node<T> getRoot() {
