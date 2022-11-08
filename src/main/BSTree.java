@@ -62,7 +62,6 @@ public class BSTree<T extends Comparable<T>> {
         if(getRoot() == null)
             return null;
 
-        String result = "";
         return recursiveToString(getRoot());
     }
 
