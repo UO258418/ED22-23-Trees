@@ -72,6 +72,10 @@ public class BSTree<T extends Comparable<T>> {
        return getMax(currentRoot.getRight());
     }
 
+    public BSTNode<T> remove(T element) {
+        return null;
+    }
+
     @Override
     public String toString() {
         if(getRoot() == null)
