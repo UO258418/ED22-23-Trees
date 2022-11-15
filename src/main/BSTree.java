@@ -2,7 +2,7 @@ package main;
 
 public class BSTree<T extends Comparable<T>> {
 
-    private Node<T> root;
+    private BSTNode<T> root;
 
     public BSTree() {
         setRoot(null);
@@ -13,24 +13,33 @@ public class BSTree<T extends Comparable<T>> {
             throw new NullPointerException("The element to add cannot be null");
 
         if(getRoot() == null){
-            Node<T> node = new Node<>(value);
+            BSTNode<T> node = new BSTNode<>(value);
             setRoot(node);
+            node.updateHeight();
         } else {
             recursiveAdd(getRoot(), value);
         }
     }
 
-    private void recursiveAdd(Node<T> currentRoot, T value) throws IllegalArgumentException {
+    private void recursiveAdd(BSTNode<T> currentRoot, T value) throws IllegalArgumentException {
         if(currentRoot.getValue().equals(value))
            throw new IllegalArgumentException("Element is already present");
 
         if(value.compareTo(currentRoot.getValue()) < 0) {
-            if(currentRoot.getLeft() == null)
-                currentRoot.setLeft(new Node<>(value));
+            if(currentRoot.getLeft() == null) {
+                BSTNode<T> node = new BSTNode<>(value);
+                node.setRoot(currentRoot);
+                currentRoot.setLeft(node);
+                node.updateHeight();
+            }
             else recursiveAdd(currentRoot.getLeft(), value);
         } else {
-            if(currentRoot.getRight() == null)
-                currentRoot.setRight(new Node<>(value));
+            if(currentRoot.getRight() == null) {
+                BSTNode<T> node = new BSTNode<>(value);
+                node.setRoot(currentRoot);
+                currentRoot.setRight(node);
+                node.updateHeight();
+            }
             else recursiveAdd(currentRoot.getRight(), value);
         }
     }
@@ -42,7 +51,7 @@ public class BSTree<T extends Comparable<T>> {
         return recursiveSearch(getRoot(), value);
     }
 
-    private boolean recursiveSearch(Node<T> currentRoot, T value) {
+    private boolean recursiveSearch(BSTNode<T> currentRoot, T value) {
         if(currentRoot.getValue().equals(value))
             return true;
 
@@ -53,8 +62,14 @@ public class BSTree<T extends Comparable<T>> {
         }
     }
 
-    public T getMax(Node<T> root) {
-        return null;
+    public T getMax(BSTNode<T> currentRoot) throws NullPointerException {
+        if(currentRoot == null)
+            throw new NullPointerException("The node cannot be null");
+
+        if(!currentRoot.hasRight())
+            return currentRoot.getValue();
+
+       return getMax(currentRoot.getRight());
     }
 
     @Override
@@ -65,19 +80,19 @@ public class BSTree<T extends Comparable<T>> {
         return recursiveToString(getRoot());
     }
 
-    private String recursiveToString(Node<T> currentRoot) {
+    private String recursiveToString(BSTNode<T> currentRoot) {
         String result = "";
-        result += currentRoot.getValue();
+        result += currentRoot.getValue().toString() + '(' + currentRoot.getHeight() + ')';
         result += currentRoot.getLeft() == null ? '-' : recursiveToString(currentRoot.getLeft());
         result += currentRoot.getRight() == null ? '-' : recursiveToString(currentRoot.getRight());
         return result;
     }
 
-    public Node<T> getRoot() {
+    public BSTNode<T> getRoot() {
         return root;
     }
 
-    public void setRoot(Node<T> root) {
+    public void setRoot(BSTNode<T> root) {
         this.root = root;
     }
 

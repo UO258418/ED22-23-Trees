@@ -1,4 +1,4 @@
-/*package test;
+package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +27,7 @@ public class BSTAVLTest {
 	}
 	
 	
-	@Test
+	/*@Test
 	public void test_BH() {
 	
 		// Example
@@ -52,7 +52,9 @@ public class BSTAVLTest {
 		// Scenery I
 		a.remove('a');
 		assertEquals ("b(3)-c(2)-i(1)h(0)---", a.toString());
-	}	@Test
+	}
+
+	@Test
 	public void test_B() {
 	
 		// Example
@@ -77,7 +79,7 @@ public class BSTAVLTest {
 		// Scenery I
 		a.remove('a');
 		assertEquals ("b-c-ih---", a.toString());
-	}
+	}*/
 	
 	
 	@Test
@@ -125,4 +127,4 @@ public class BSTAVLTest {
 //		assertEquals ("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", a.joins(b).toString());
 	}
 
-}*/
+}
