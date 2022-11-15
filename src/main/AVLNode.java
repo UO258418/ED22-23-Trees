@@ -1,13 +1,13 @@
 package main;
 
-public class BSTNode<T> {
+public class AVLNode<T> {
 
     private T value;
-    private BSTNode<T> left, right;
+    private AVLNode<T> left, right;
     private int height = 0;
-    private BSTNode<T> root;
+    private AVLNode<T> root;
 
-    public BSTNode(T value) {
+    public AVLNode(T value) {
         setValue(value);
     }
 
@@ -32,6 +32,23 @@ public class BSTNode<T> {
 
     }
 
+    public int getBF() {
+        if(!hasLeft() && !hasRight())
+            return 0;
+
+        if(hasRight() && hasLeft()) {
+            return getRight().getHeight() - getLeft().getHeight();
+        }
+
+        else if(hasRight()) {
+            return getRight().getHeight() + 1;
+        }
+
+        else {
+            return -getLeft().getHeight() - 1;
+        }
+    }
+
     public T getValue() {
         return value;
     }
@@ -40,19 +57,19 @@ public class BSTNode<T> {
         this.value = value;
     }
 
-    public BSTNode<T> getLeft() {
+    public AVLNode<T> getLeft() {
         return left;
     }
 
-    public void setLeft(BSTNode<T> left) {
+    public void setLeft(AVLNode<T> left) {
         this.left = left;
     }
 
-    public BSTNode<T> getRight() {
+    public AVLNode<T> getRight() {
         return right;
     }
 
-    public void setRight(BSTNode<T> right) {
+    public void setRight(AVLNode<T> right) {
         this.right = right;
     }
 
@@ -72,11 +89,11 @@ public class BSTNode<T> {
         this.height = height;
     }
 
-    public BSTNode<T> getRoot() {
+    public AVLNode<T> getRoot() {
         return root;
     }
 
-    public void setRoot(BSTNode<T> root) {
+    public void setRoot(AVLNode<T> root) {
         this.root = root;
     }
 

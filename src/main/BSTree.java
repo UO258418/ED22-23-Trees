@@ -62,6 +62,24 @@ public class BSTree<T extends Comparable<T>> {
         }
     }
 
+    public BSTNode<T> getNode(T value) {
+        if(getRoot() == null)
+            return null;
+
+        return recursiveGetNode(getRoot(), value);
+    }
+
+    private BSTNode<T> recursiveGetNode(BSTNode<T> currentRoot, T value) {
+        if(currentRoot.getValue().equals(value))
+            return currentRoot;
+
+        if(value.compareTo(currentRoot.getValue()) < 0) {
+            return currentRoot.getLeft() == null ? null : recursiveGetNode(currentRoot.getLeft(), value);
+        } else {
+            return currentRoot.getRight() == null ? null : recursiveGetNode(currentRoot.getRight(), value);
+        }
+    }
+
     public T getMax(BSTNode<T> currentRoot) throws NullPointerException {
         if(currentRoot == null)
             throw new NullPointerException("The node cannot be null");
@@ -73,6 +91,7 @@ public class BSTree<T extends Comparable<T>> {
     }
 
     public BSTNode<T> remove(T element) {
+
         return null;
     }
 
