@@ -18,7 +18,6 @@ public class BSTNode<T> {
             setHeight(0);
 
         else if(hasLeft() && hasRight()) {
-            System.out.println("1");
             if(getLeft().getHeight() == getRight().getHeight() || getLeft().getHeight() > getRight().getHeight())
                 setHeight(getLeft().getHeight() + 1);
 
