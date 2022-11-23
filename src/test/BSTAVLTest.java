@@ -21,9 +21,7 @@ public class BSTAVLTest {
 		
 		charTree.add('d');
 		assertEquals ("a(3)-b(2)-c(1)-d(0)--", charTree.toString());
-		
-		
-		
+
 	}
 	
 	

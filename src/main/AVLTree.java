@@ -116,6 +116,8 @@ public class AVLTree<T extends Comparable<T>> {
         AVLNode<T> newRoot = currentRoot.getLeft();
         currentRoot.setLeft(newRoot.getRight());
         newRoot.setRight(currentRoot);
+        currentRoot.setRoot(newRoot);
+
         currentRoot.updateHeight();
         return newRoot;
     }
@@ -136,6 +138,8 @@ public class AVLTree<T extends Comparable<T>> {
         AVLNode<T> newRoot = currentRoot.getRight();
         currentRoot.setRight(newRoot.getLeft());
         newRoot.setLeft(currentRoot);
+        currentRoot.setRoot(newRoot);
+
         currentRoot.updateHeight();
         return newRoot;
     }
@@ -155,14 +159,14 @@ public class AVLTree<T extends Comparable<T>> {
     @Override
     public String toString() {
         if(getRoot() == null)
-            return null;
+            return "-";
 
         return recursiveToString(getRoot());
     }
 
     private String recursiveToString(AVLNode<T> currentRoot) {
         String result = "";
-        result += currentRoot.getValue().toString() + '(' + currentRoot.getBF() + ')';
+        result += currentRoot.toString();
         result += currentRoot.getLeft() == null ? '-' : recursiveToString(currentRoot.getLeft());
         result += currentRoot.getRight() == null ? '-' : recursiveToString(currentRoot.getRight());
         return result;
@@ -182,7 +186,7 @@ public class AVLTree<T extends Comparable<T>> {
 
     private int recursiveGetHeight(AVLNode<T> currentRoot) {
         if(!currentRoot.hasLeft() && !currentRoot.hasRight())
-            return 0;
+            return 1;
 
         if(currentRoot.hasLeft() && currentRoot.hasRight())
             return maxHeight(recursiveGetHeight(currentRoot.getLeft()), recursiveGetHeight(currentRoot.getRight())) + 1;
