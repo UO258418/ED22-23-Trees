@@ -4,6 +4,16 @@ public class BSTree<T extends Comparable<T>> {
 
     private BSTNode<T> root;
 
+    public int getNumberOfNodes() {
+        return numberOfNodes;
+    }
+
+    public void setNumberOfNodes(int numberOfNodes) {
+        this.numberOfNodes = numberOfNodes;
+    }
+
+    private int numberOfNodes = 0;
+
     public BSTree() {
         setRoot(null);
     }
@@ -16,6 +26,7 @@ public class BSTree<T extends Comparable<T>> {
             BSTNode<T> node = new BSTNode<>(value);
             setRoot(node);
             node.updateHeight();
+            numberOfNodes += 1;
         } else {
             recursiveAdd(getRoot(), value);
         }
@@ -31,6 +42,7 @@ public class BSTree<T extends Comparable<T>> {
                 node.setRoot(currentRoot);
                 currentRoot.setLeft(node);
                 node.updateHeight();
+                numberOfNodes += 1;
             }
             else recursiveAdd(currentRoot.getLeft(), value);
         } else {
@@ -39,6 +51,7 @@ public class BSTree<T extends Comparable<T>> {
                 node.setRoot(currentRoot);
                 currentRoot.setRight(node);
                 node.updateHeight();
+                numberOfNodes += 1;
             }
             else recursiveAdd(currentRoot.getRight(), value);
         }
@@ -132,6 +145,8 @@ public class BSTree<T extends Comparable<T>> {
                 }
                 newChild.updateHeight();
             }
+
+            numberOfNodes -= 1;
         }
 
         else if(element.compareTo(currentRoot.getValue()) < 0 && currentRoot.getLeft() != null) {
@@ -165,6 +180,31 @@ public class BSTree<T extends Comparable<T>> {
 
     public void setRoot(BSTNode<T> root) {
         this.root = root;
+    }
+
+    public double incompleteRatio() {
+        if(root == null)
+            throw new IllegalStateException("Tree cannot be empty");
+
+        return recursiveIncompleteRatio(getRoot()) / (double)numberOfNodes;
+    }
+
+    private int recursiveIncompleteRatio(BSTNode<T> currentRoot) {
+        if(!currentRoot.hasLeft() && !currentRoot.hasRight()) {
+            return 1;
+        }
+
+        if(currentRoot.hasLeft() && currentRoot.hasRight()) {
+            return recursiveIncompleteRatio(currentRoot.getLeft()) + recursiveIncompleteRatio(currentRoot.getRight());
+        }
+
+        if(currentRoot.hasLeft()) {
+            return recursiveIncompleteRatio(currentRoot.getLeft()) + 1;
+        }
+
+        else {
+            return recursiveIncompleteRatio(currentRoot.getRight()) + 1;
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 
 import main.AVLTree;
@@ -53,4 +53,4 @@ public class BFTest {
 				
 		
 	}
-}
+}*/

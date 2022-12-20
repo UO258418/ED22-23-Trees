@@ -1,4 +1,4 @@
-package test;
+/*package test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -124,4 +124,4 @@ public class BSTAVLTest {
 //		assertEquals ("b(3)a(0)--d(2)c(0)--g(1)-i(0)--", a.joins(b).toString());
 	}
 
-}
+}*/
