@@ -93,6 +93,7 @@ public class AVLTree<T extends Comparable<T>> {
                 newChild.updateHeight();
             }
 
+            getRoot().updateHeight();
             updateBF(getRoot());
         }
 
