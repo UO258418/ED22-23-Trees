@@ -90,9 +90,57 @@ public class BSTree<T extends Comparable<T>> {
        return getMax(currentRoot.getRight());
     }
 
-    public BSTNode<T> remove(T element) {
+    private BSTNode<T> getLowestChild(BSTNode<T> currentRoot) throws NullPointerException {
+        if(currentRoot == null)
+            throw new NullPointerException("The node cannot be null");
 
-        return null;
+        if(!currentRoot.hasLeft() && !currentRoot.hasRight())
+            return null;
+
+        if(currentRoot.hasLeft())
+            return currentRoot.getLeft();
+
+        return currentRoot.getRight();
+    }
+
+    public void remove(T element) {
+        if(getRoot() == null)
+            return;
+
+        recursiveRemove(getRoot(), element);
+    }
+
+    private void recursiveRemove(BSTNode<T> currentRoot, T element) {
+        if(currentRoot.getValue().equals(element)) {
+            BSTNode<T> parent = currentRoot.getRoot();
+            BSTNode<T> newChild = getLowestChild(currentRoot);
+
+            if(currentRoot.equals(parent.getLeft())) {
+                parent.setLeft(newChild);
+            }
+
+            else {
+                parent.setRight(newChild);
+            }
+
+            if(newChild != null) {
+                newChild.setRoot(parent);
+                if(newChild.equals(currentRoot.getLeft())) {
+                    newChild.setRight(currentRoot.getRight());
+                    if(currentRoot.hasRight())
+                        currentRoot.getRight().setRoot(newChild);
+                }
+                newChild.updateHeight();
+            }
+        }
+
+        else if(element.compareTo(currentRoot.getValue()) < 0 && currentRoot.getLeft() != null) {
+            recursiveRemove(currentRoot.getLeft(), element);
+        }
+
+        else if(element.compareTo(currentRoot.getValue()) > 0 && currentRoot.getRight() != null){
+            recursiveRemove(currentRoot.getRight(), element);
+        }
     }
 
     @Override

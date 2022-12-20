@@ -25,7 +25,7 @@ public class BSTAVLTest {
 	}
 	
 	
-	/*@Test
+	@Test
 	public void test_BH() {
 	
 		// Example
@@ -77,9 +77,8 @@ public class BSTAVLTest {
 		// Scenery I
 		a.remove('a');
 		assertEquals ("b-c-ih---", a.toString());
-	}*/
-	
-	
+	}
+
 	@Test
 	public void test_C_Joins() {
 	

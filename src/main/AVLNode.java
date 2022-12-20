@@ -12,6 +12,12 @@ public class AVLNode<T> {
     }
 
     public void updateHeight() {
+        if(hasLeft())
+            getLeft().updateHeight();
+
+        if(hasRight())
+            getRight().updateHeight();
+
         if(!hasLeft() && !hasRight())
             setHeight(0);
 
@@ -26,9 +32,6 @@ public class AVLNode<T> {
             setHeight(getLeft().getHeight() + 1);
 
         else setHeight(getRight().getHeight() + 1);
-
-        if(hasRoot())
-            getRoot().updateHeight();
     }
 
     public int getBF() {
@@ -62,7 +65,8 @@ public class AVLNode<T> {
 
     public void setLeft(AVLNode<T> left) {
         this.left = left;
-        left.setRoot(this);
+        if(left != null)
+            left.setRoot(this);
     }
 
     public AVLNode<T> getRight() {
@@ -71,7 +75,8 @@ public class AVLNode<T> {
 
     public void setRight(AVLNode<T> right) {
         this.right = right;
-        right.setRoot(this);
+        if(right != null)
+            right.setRoot(this);
     }
 
     public boolean hasRight() {
@@ -104,6 +109,6 @@ public class AVLNode<T> {
 
     @Override
     public String toString() {
-        return getValue().toString() + '(' + getBF() + ')' + '(' + getHeight() + ')';
+        return getValue().toString() + '(' + getBF() + ')' /*+ '(' + getHeight() + ')'*/;
     }
 }

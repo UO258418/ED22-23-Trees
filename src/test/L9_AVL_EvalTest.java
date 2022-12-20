@@ -41,7 +41,7 @@ public class L9_AVL_EvalTest {
          
         //20, 4, 10, 9, 6, 3.
  
-        /*ti.remove(20);
+        ti.remove(20);
         
         assertEquals ("6(0)3(-1)2(-1)1(0)---4(0)--10(0)9(-1)7(0)---14(0)12(0)--15(0)--", ti.toString());
         assertEquals (4, ti.getHeight());
@@ -68,7 +68,7 @@ public class L9_AVL_EvalTest {
  
         ti.remove(3);
         assertEquals ("7(0)2(-1)1(0)---14(0)12(0)--15(0)--", ti.toString());
-        assertEquals (3, ti.getHeight());*/
+        assertEquals (3, ti.getHeight());
     }
 
 }

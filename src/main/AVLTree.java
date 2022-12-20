@@ -63,6 +63,61 @@ public class AVLTree<T extends Comparable<T>> {
         }
     }
 
+    public void remove(T element) {
+        if(getRoot() == null)
+            return;
+
+        recursiveRemove(getRoot(), element);
+    }
+
+    private void recursiveRemove(AVLNode<T> currentRoot, T element) {
+        if(currentRoot.getValue().equals(element)) {
+            AVLNode<T> parent = currentRoot.getRoot();
+            AVLNode<T> newChild = getLowestChild(currentRoot);
+
+            if(currentRoot.equals(parent.getLeft())) {
+                parent.setLeft(newChild);
+            }
+
+            else {
+                parent.setRight(newChild);
+            }
+
+            if(newChild != null) {
+                newChild.setRoot(parent);
+                if(newChild.equals(currentRoot.getLeft())) {
+                    newChild.setRight(currentRoot.getRight());
+                    if(currentRoot.hasRight())
+                        currentRoot.getRight().setRoot(newChild);
+                }
+                newChild.updateHeight();
+            }
+
+            updateBF(getRoot());
+        }
+
+        else if(element.compareTo(currentRoot.getValue()) < 0 && currentRoot.getLeft() != null) {
+            recursiveRemove(currentRoot.getLeft(), element);
+        }
+
+        else if(element.compareTo(currentRoot.getValue()) > 0 && currentRoot.getRight() != null){
+            recursiveRemove(currentRoot.getRight(), element);
+        }
+    }
+
+    private AVLNode<T> getLowestChild(AVLNode<T> currentRoot) throws NullPointerException {
+        if(currentRoot == null)
+            throw new NullPointerException("The node cannot be null");
+
+        if(!currentRoot.hasLeft() && !currentRoot.hasRight())
+            return null;
+
+        if(currentRoot.hasLeft())
+            return currentRoot.getLeft();
+
+        return currentRoot.getRight();
+    }
+
     public AVLNode<T> getNode(T value) {
         if(getRoot() == null)
             return null;
@@ -89,11 +144,6 @@ public class AVLTree<T extends Comparable<T>> {
             return currentRoot.getValue();
 
        return getMax(currentRoot.getRight());
-    }
-
-    public AVLNode<T> remove(T element) {
-
-        return null;
     }
 
     private AVLNode<T> updateBF(AVLNode<T> currentRoot) {
@@ -192,10 +242,10 @@ public class AVLTree<T extends Comparable<T>> {
             return maxHeight(recursiveGetHeight(currentRoot.getLeft()), recursiveGetHeight(currentRoot.getRight())) + 1;
 
         if(currentRoot.hasLeft())
-            return recursiveGetHeight(currentRoot.getLeft());
+            return recursiveGetHeight(currentRoot.getLeft()) + 1;
 
         else
-            return recursiveGetHeight(currentRoot.getRight());
+            return recursiveGetHeight(currentRoot.getRight()) + 1;
     }
 
     private int maxHeight(int heightLeft, int heightRight) {

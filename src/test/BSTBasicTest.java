@@ -1,4 +1,4 @@
-/*package test;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,4 +55,4 @@ class BSTBasicTest {
 		assertEquals('i', (char) a.getMax(a.getRoot()));
 
 	}
-}*/
+}
